@@ -48,3 +48,53 @@ export const searchRepo = `
   }
 }
 `;
+
+export const repoBaseInfo = `
+query queryRepoBaseInfo($id: ID!){
+  node(id: $id){
+    ... on Repository {
+      name
+      description
+      url
+      nameWithOwner
+      stargazerCount
+      createdAt
+      forkCount
+      diskUsage
+      watchers {
+        totalCount
+      }
+      owner {
+        avatarUrl
+      }
+      defaultBranchRef {
+        target {
+          ... on Commit {
+            history {
+              totalCount
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+export const repoStar = `
+query repoStart($id: ID!, $after: String) {
+  node(id: $id) {
+    ... on Repository {
+      stargazers(first: 100, orderBy: {field: STARRED_AT, direction: ASC}, after: $after) {
+        edges {
+          starredAt
+        }
+        totalCount
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}`;

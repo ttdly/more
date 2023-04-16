@@ -33,7 +33,12 @@ async function search() {
 
 function toMore(type, id) {
   searchStore.init(type, id);
-  router.push({ path: "/login" });
+  if(type === 'REPOSITORY'){
+    router.push({ path: "/repo" });
+  }
+  if(type === 'USER'){
+    router.push({ path: "/user" });
+  }
 }
 </script>
 <template>
